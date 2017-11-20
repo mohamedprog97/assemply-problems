@@ -1,0 +1,105 @@
+.MODEL FLAT
+INCLUDE io.h
+.STACK 4096
+.DATA
+
+    prombet_g1        BYTE "grade 1?",0
+	g1                DWORD  40 DUP(?)
+	prombet_g2        BYTE "grade 2?",0
+	g2                DWORD  40 DUP(?)
+	prombet_g3        BYTE "grade 3?",0
+	g3               DWORD  40 DUP(?)
+	prombet_g4        BYTE "grade 4?",0
+	g4                DWORD  40 DUP(?)
+
+	prombet_w1        BYTE "weight 1?",0
+	w1                DWORD  40 DUP(?)
+	prombet_w2        BYTE "weight 2?",0
+	w2                DWORD  40 DUP(?)
+	prombet_w3        BYTE "weight 3?",0
+	w3               DWORD  40 DUP(?)
+	prombet_w4        BYTE "weight 4?",0
+	w4                DWORD  40 DUP(?)
+
+	
+	
+	weightedSum      DWORD  40 DUP(?)
+	
+
+	Message          BYTE "weighted sum:"
+	sum              DWORD  40 DUP(?)
+	                 BYTE "sum of weights:"
+    sumOfWeights     DWORD  40 DUP(?)
+	                 BYTE "weighted average:"
+    avearge          DWORD  40 DUP(?),0
+	
+	msgtitle            BYTE "result's are",0
+	
+.CODE
+    
+	MainProc PROC      ; start function MainProc
+
+	input prombet_g1 , g1 , 40
+	atod  g1
+	mov   g1,eax
+
+	input prombet_w1 , w1 ,40
+    atod  w1   
+	mov  sumOfWeights,eax
+	mul  g1
+	mov sum,eax
+
+	input prombet_g2 , g2 , 40
+	atod  g2
+	mov   g2,eax
+
+	input prombet_w2 , w2 ,40
+	atod  w2
+	add sumOfWeights,eax
+	mul  g2
+	add sum,eax
+	mov eax,sum
+
+	input prombet_g3 , g3 , 40
+	atod  g3
+	mov   g3,eax
+
+	input prombet_w3 , w3 ,40
+	atod  w3
+	add sumOfWeights,eax
+	mul   g3
+	add sum,eax
+	mov eax,sum
+
+	input prombet_g4 , g4 , 40
+	atod  g4
+	mov   g4,eax
+
+	input prombet_w4 , w4 ,40
+	atod  w4
+	add sumOfWeights,eax
+	mul   g4
+	add sum,eax
+	mov eax,sum
+
+	dtoa   sum,eax
+    output msgtitle,sum
+
+	mov    eax,sumOfWeights
+	dtoa   sumOfWeights,eax
+    output msgtitle,sumOfWeights
+
+	atod    sumOfWeights
+	mov     sumOfWeights,eax
+	atod   sum
+	div    sumOfWeights
+    dtoa   avearge,eax
+	output msgtitle,avearge
+	 
+	;output msgtitle,Message 
+	mov eax,0          ; move a value 0 to register eax to infom OS that a programe finshed correctly
+	ret                ; return eax value
+
+	MainProc ENDP       ; end function MainProc
+
+END

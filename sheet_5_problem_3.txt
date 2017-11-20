@@ -1,0 +1,37 @@
+.MODEL FLAT
+INCLUDE io.h
+.STACK 4096
+.DATA
+
+    prombet_1        BYTE "Pleaze Enter a Rectangel Width",0
+	x                DWORD  40 DUP(?)
+	prombet_2        BYTE "Pleaze Enter a Rectangel Length",0
+	y                DWORD  40 DUP(?)
+
+	outmessage       BYTE "The Rectangel perimeter  Is",0
+	result           DWORD 40 DUP(?)
+	
+.CODE
+    
+	MainProc PROC      ; start function MainProc
+
+	input     prombet_1 , x , 40     ; store input at variabel x
+	atod      x                      ; store a double value of  x at eax without change x ==> x still ASCII 
+	add       eax,eax
+	mov       x,eax                  ; move eax content to x
+
+	input     prombet_2 , y , 40     ; store input at variabel y
+	atod      y                      ; store a double value of  y at eax without change y ==> y still ASCII
+	add       eax,eax
+	add       eax,x                  
+	  
+    dtoa       result,eax            ; convert a content of eax to ASCII and store at result
+	output    outmessage,result
+
+	 
+	mov eax,0          ; move a value 0 to register eax to infom OS that a programe finshed correctly
+	ret                ; return eax value
+
+	MainProc ENDP       ; end function MainProc
+
+END
