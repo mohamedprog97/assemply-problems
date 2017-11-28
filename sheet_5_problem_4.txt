@@ -1,0 +1,102 @@
+.MODEL FLAT
+INCLUDE io.h
+.STACK 4096
+.DATA
+
+    pens_msg                BYTE "Enter pennies coins",0
+	pens                    DWORD 40 DUP(?)
+	p_cent                  DWORD 1
+
+	nickels_msg             BYTE "Enter nickels coins",0
+	nickels                 DWORD 40 DUP(?)
+	n_cent                  DWORD 5
+
+	dimes_msg               BYTE "Enter dimes coins",0
+	dimes                   DWORD 40 DUP(?)
+	di_cent                 DWORD 10
+
+	quater_msg              BYTE "Enter quater coins",0
+	quater                  DWORD 40 DUP(?)
+	q_cent                  DWORD 25
+
+	fifty_cent_msg          BYTE "Enter fifty_cent_msg coins",0
+	fifty_cent              DWORD 40 DUP(?)
+	f_cent                  DWORD 50
+
+	dollar_msg              BYTE "Enter dollar coins",0
+	dollar                  DWORD 40 DUP(?)
+	do_cent                 DWORD 100
+	
+	cent_num                DWORD 40 DUP(?)
+	dollar_num              DWORD 40 DUP(?)
+	cent_num_msg            BYTE "Number Of Cent",0
+	dollar_num_msg          BYTE "Number Of Dollar",0
+	
+.CODE
+    
+	MainProc PROC      ; start function MainProc
+	
+	input                  pens_msg , pens , 40
+	atod                   pens
+	mov                    pens,eax
+    mul                    p_cent
+	add                    cent_num,eax
+	mov                    eax,0
+	mov                    edx,0
+
+
+	input                  nickels_msg , nickels , 40
+	atod                   nickels
+	mov                    nickels,eax
+	mul                    n_cent
+	add                    cent_num,eax
+	mov                    eax,0
+	mov                    edx,0
+
+	input                  dimes_msg , dimes , 40
+	atod                   dimes
+	mov                    dimes,eax
+	mul                    di_cent
+	add                    cent_num,eax
+	mov                    eax,0
+	mov                    edx,0
+
+	input                  quater_msg , quater , 40
+	atod                   quater
+	mov                    quater,eax
+	mul                    q_cent
+	add                    cent_num,eax
+	mov                    eax,0
+	mov                    edx,0
+
+	input                  fifty_cent_msg , fifty_cent , 40
+	atod                   fifty_cent
+	mov                    fifty_cent,eax
+	mul                    f_cent
+	add                    cent_num,eax
+	mov                    eax,cent_num
+	div                    do_cent
+	mov                    dollar_num,eax
+	mov                    eax,0
+	mov                    edx,0
+
+	input                  dollar_msg , dollar , 40
+	atod                   dollar
+	mov                    dollar,eax
+	add                    dollar_num,eax
+	mul                    do_cent
+	add                    cent_num,eax
+
+	mov                    eax,cent_num
+	dtoa                   cent_num,eax
+	mov                    ebx,dollar_num
+	dtoa                   dollar_num,ebx
+	output                 cent_num_msg,cent_num
+	output                 dollar_num_msg,dollar_num
+	 
+	mov eax,0          ; move a value 0 to register eax to infom OS that a programe finshed correctly
+	ret                ; return eax value
+
+	MainProc ENDP       ; end function MainProc
+
+END
