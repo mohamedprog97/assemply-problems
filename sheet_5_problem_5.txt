@@ -1,0 +1,62 @@
+.MODEL FLAT
+INCLUDE io.h
+.STACK 4096
+.DATA
+
+    prombet_1        BYTE "Pleaze Enter a First grade",0
+	g1                DWORD  40 DUP(?)
+	prombet_2        BYTE "Pleaze Enter a second grade",0
+	g2                DWORD  40 DUP(?)
+	prombet_3        BYTE "Pleaze Enter a Third grade",0
+	g3               DWORD  40 DUP(?)
+	prombet_4        BYTE "Pleaze Enter a Fourth grade",0
+	g4                DWORD  40 DUP(?)
+
+	sum              DWORD  40 DUP(?)
+	var              DWORD 4
+	reminder         DWORD 40 DUP(?)
+	avearge          DWORD  40 DUP(?)
+	sumMessage       BYTE "The sum Is",0
+	avgMessage       BYTE "The average Is",0
+	remindermsg      BYTE "The reminder Is",0
+	result           DWORD 40 DUP(?)
+	
+.CODE
+    
+	MainProc PROC      ; start function MainProc
+
+	input     prombet_1 , g1 , 40     ; store input at variabel x
+	atod      g1                      ; store a double value of  x at eax without change x ==> x still ASCII 
+	mov       g1,eax                   ; move eax content to x
+
+	input     prombet_2 , g2 , 40     ; store input at variabel y
+	atod      g2                      ; store a double value of  y at eax without change y ==> y still ASCII
+	add       eax,g1
+	mov       g2,eax
+	
+	input     prombet_3 , g3 , 40     ; store input at variabel z
+	atod      g3
+	add       eax,g2
+	mov       g3,eax  
+	
+	input     prombet_4 , g4 , 40     ; store input at variabel z
+	atod      g4
+	add       eax,g3 
+	mov       ebx,eax                  
+    dtoa      sum,eax                 ; convert a content of eax to ASCII and store at result
+	
+	output    sumMessage,sum
+
+	mov       edx,0 
+	div       var
+	dtoa      avearge,eax
+	mov       reminder,edx
+	output    avgMessage,avearge
+	;output    remindermsg,reminder
+	 
+	mov eax,0          ; move a value 0 to register eax to infom OS that a programe finshed correctly
+	ret                ; return eax value
+
+	MainProc ENDP       ; end function MainProc
+
+END
